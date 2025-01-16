@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The AI Dilemma - Scenario-based Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding-bottom: 300px;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f06292;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            overflow-y: scroll;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            height: 90%;
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 0px;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: black;
+        }
+
+        /* Introduction Page */
+        .intro-container {
+            margin-top: -30px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            max-width: 800px;
+            width: 100%;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .intro-container .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        
+        /* Updated Scenario Container */
+        .white-background-container {
+    margin-top: -30px; /* Matches intro-container */
+    padding: 30px; /* Matches intro-container */
+    background-color: #ffffff;
+    border-radius: 8px; /* Matches intro-container */
+    max-width: 800px; /* Matches intro-container */
+    width: 100%; /* Matches intro-container */
+    margin-bottom: 30px; /* Matches intro-container */
+    text-align: center; /* Matches intro-container */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Retains shadow effect */
+}
+
+
+        /* Button Styles */
+        .submit-button,
+        .next-button {
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            background-color: #4DB7AD; /* Blue color */
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+        }
+
+        /* Button hover effect */
+        .submit-button:hover,
+        .next-button:hover {
+            background-color: #3581B8; /* Darker shade of blue on hover */
+        }
+
+        /* Shadow effect on button click */
+        .submit-button:active,
+        .next-button:active {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Shadow on click */
+            transform: translateY(2px); /* Slightly move the button down when clicked */
+        }
+
+        /* Disable button appearance */
+        .submit-button[disabled],
+        .next-button[disabled] {
+            background-color: #d3d3d3; /* Gray color when disabled */
+            cursor: not-allowed;
+        }
+
+        /* Explanation Popup */
+        .explanation-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 500px;
+            max-width: 400px;
+            background-color: #fff;
+            border: 2px solid #3581B8;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            max-height: 200px;
+            word-wrap: break-word;
+        }
+
+        .explanation-popup p {
+            font-size: 0.9rem;
+            margin: 0;
+            color: #333;
+            text-align: center;
+        }
+
+        .explanation-popup .next-button {
+            background-color: #4DB7AD;
+            font-size: 0.9rem;
+            padding: 8px 15px;
+        }
+
+        /* Answer Styles */
+        .answer {
+            padding: 12px 25px;
+            height: 100px;
+            gap: 10px;
+            background-color: #ffffff;
+            border: 2px solid #d3d3d3;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: background-color 0.3s, border-color 0.3s;
+            margin-top: 20px;
+            margin-bottom: 20px; /* 20px gap between options */
+            width: calc(100% - 50px); /* Ensures options take the same width */
+        }
+
+        /* Hover effect on answer buttons */
+        .answer:hover {
+            background-color: #f6f6f6;
+            border-color: #a0a0a0;
+        }
+
+        /* Active state for clicked answers */
+        .answer.clicked {
+            background-color: #d0e8ff;
+            border-color: #3581b8;
+        }
+
+        /* Correct answer button */
+        .answer.correct {
+            background-color: #a7f3a7;
+            border-color: #30a630;
+            pointer-events: none;
+        }
+
+        /* Incorrect answer button */
+        .answer.incorrect {
+            background-color: #f7a7a7;
+            border-color: #d33c3c;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <img src="animals_surprise.gif" alt="Bear Surprised" style="height: 300px; margin-right: 20px;">
+        <div>
+            <h1><strong>The AI Dilemma</strong></h1>
+            <p>Navigate the risks and challenges of<br> developing AI-powered content creation tools!</p>
+        </div>
+    </header>
+
+    <!-- Introduction Page -->
+    <div class="intro-container" id="intro-page">
+        <div class="question">Welcome to <strong>The AI Dilemma</strong>!<br><br> In this game, you are a <i>junior data scientist</i> at a leading tech company.<br>Your task is to <strong>develop a new AI-powered content creation tool</strong>, but your journey is full of ethical and practical challenges.<br><br>Make decisions wisely as you move through each scenario!</div>
+        <div class="button-container">
+            <button class="submit-button" id="ready-button" onclick="startGame()">I'm Ready!</button>
+        </div>
+    </div>
+
+    <!-- Scenario 1: Training Data Selection -->
+    <div class="white-background-container question-container" id="scenario1" style="display:none;">
+        <div class="question">Scenario 1: You have access to a massive dataset for training your AI model.</div>
+        <div class="answers">
+            <button class="answer" onclick="selectAnswer(1, 'option1')">Option 1: Use a readily available, publicly scraped dataset for faster training.</button>
+            <button class="answer" onclick="selectAnswer(1, 'option2')">Option 2: Curate a smaller, more carefully selected dataset, ensuring data quality and addressing potential biases.</button>
+        </div>
+        <div class="button-container">
+            <button class="submit-button" id="submit1" onclick="submitAnswer(1)" disabled>Submit Answer</button>
+            <button class="next-button" id="next-button1" onclick="nextQuestion()" style="display: none;">Next</button>
+        </div>
+    </div>
+
+    <!-- Scenario 2: Model Output Control -->
+    <div class="white-background-container question-container" id="scenario2" style="display:none;">
+        <div class="question">Scenario 2: Your AI model is generating impressive results, but sometimes produces factually incorrect or offensive content.</div>
+        <div class="answers">
+            <button class="answer" onclick="selectAnswer(2, 'option1')">Option 1: Deploy the model immediately to market, addressing issues later.</button>
+            <button class="answer" onclick="selectAnswer(2, 'option2')">Option 2: Implement stricter quality control measures, potentially delaying deployment.</button>
+        </div>
+        <div class="button-container">
+            <button class="submit-button" id="submit2" onclick="submitAnswer(2)" disabled>Submit Answer</button>
+            <button class="next-button" id="next-button2" onclick="nextQuestion()" style="display: none;">Next</button>
+        </div>
+    </div>
+
+    <!-- Scenario 3: Addressing User Concerns -->
+    <div class="white-background-container question-container" id="scenario3" style="display:none;">
+        <div class="question">Scenario 3: Users are raising concerns about the ethical implications of your AI content creation tool.</div>
+        <div class="answers">
+            <button class="answer" onclick="selectAnswer(3, 'option1')">Option 1: Ignore user concerns and focus on maximizing profits.</button>
+            <button class="answer" onclick="selectAnswer(3, 'option2')">Option 2: Engage with users, address their concerns transparently, and implement measures to mitigate risks.</button>
+        </div>
+        <div class="button-container">
+            <button class="submit-button" id="submit3" onclick="submitAnswer(3)" disabled>Submit Answer</button>
+            <button class="next-button" id="next-button3" onclick="nextQuestion()" style="display: none;">Finish</button>
+        </div>
+    </div>
+
+    <!-- Explanation Popups -->
+    <div class="explanation-popup" id="explanation-popup1">
+        <p>Option 2 helps mitigate biases and ensures quality training data, crucial for model fairness.</p>
+        <button class="next-button" onclick="nextQuestion()">Next</button>
+    </div>
+
+    <div class="explanation-popup" id="explanation-popup2">
+        <p>Option 2 focuses on quality control, ensuring accurate and ethical content creation.</p>
+        <button class="next-button" onclick="nextQuestion()">Next</button>
+    </div>
+
+    <div class="explanation-popup" id="explanation-popup3">
+        <p>Option 2 shows empathy and responsibility, addressing ethical concerns of users directly.</p>
+        <!-- Adding the Finish button with a link -->
+        <a href="finish.html">
+            <button class="next-button">Finish</button>
+        </a>
+    </div>
+    
+
+    <script>
+        const correctAnswers = {
+            1: 'option2', // Curate a smaller, more carefully selected dataset
+            2: 'option2', // Implement stricter quality control measures
+            3: 'option2'  // Engage with users and address their concerns
+        };
+
+        let userAnswers = {};
+        let questionIndex = 1;
+
+        // Show the current question
+        function showQuestion(index) {
+            // Hide all question containers first
+            const allQuestions = document.querySelectorAll('.question-container');
+            allQuestions.forEach(q => q.style.display = 'none');
+            
+            // Then show the relevant question
+            const questionDiv = document.querySelector(`#scenario${index}`);
+            if (questionDiv) {
+                questionDiv.style.display = 'block'; // Show the question
+            }
+            document.querySelector(`#next-button${index}`).style.display = 'none';
+        }
+
+        // Start the game after "I'm Ready!" is clicked
+        function startGame() {
+            document.querySelector(`#intro-page`).style.display = 'none'; // Hide the intro page
+            showQuestion(questionIndex); // Show the first scenario
+        }
+
+        // Select an answer
+        function selectAnswer(questionNumber, selectedAnswer) {
+            const buttons = document.querySelectorAll(`#scenario${questionNumber} .answer`);
+            buttons.forEach(button => button.classList.remove('clicked'));
+            const selectedButton = document.querySelector(`#scenario${questionNumber} .answer:nth-of-type(${selectedAnswer === 'option1' ? 1 : 2})`);
+            selectedButton.classList.add('clicked');
+            userAnswers[questionNumber] = selectedAnswer;
+
+            // Enable submit button
+            const submitButton = document.querySelector(`#submit${questionNumber}`);
+            submitButton.disabled = false;
+            submitButton.classList.add('enabled');
+        }
+
+        // Submit the answer
+        function submitAnswer(questionNumber) {
+            const selectedAnswer = userAnswers[questionNumber];
+            const correctAnswer = correctAnswers[questionNumber];
+
+            const buttons = document.querySelectorAll(`#scenario${questionNumber} .answer`);
+            buttons.forEach(button => {
+                button.disabled = true; // Disable all answers after submission
+                if (button.classList.contains('clicked')) {
+                    if (selectedAnswer === correctAnswer) {
+                        button.classList.add('correct');
+                    } else {
+                        button.classList.add('incorrect');
+                    }
+                }
+            });
+
+            // Show the explanation popup
+            document.querySelector(`#explanation-popup${questionNumber}`).style.display = 'block';
+        }
+
+        // Show the next question
+        function nextQuestion() {
+            if (questionIndex < 3) {
+                questionIndex++;
+                showQuestion(questionIndex);
+                document.querySelector(`#explanation-popup${questionIndex-1}`).style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+</html>

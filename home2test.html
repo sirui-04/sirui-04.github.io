@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Learning</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #4db7ad;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        header {
+            width: 100%;
+            margin-bottom: 0px; /* Reduced space between the image and the header text */
+        }
+
+        header img {
+            width: 300px;
+            height: auto;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333333;
+            margin-top: -100px; /* Reduced space between the image and the header text */
+        }
+
+        #content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: 20px; /* Reduced space between header and content */
+        }
+
+        #content h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #333333;
+            margin-bottom: 30px;
+            max-width: 90%;
+            margin-right: 100px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 240px;
+            justify-content: center;
+            align-items: center;
+            margin-right: 100px;
+        }
+
+        .cta-buttons a {
+            display: inline-block;
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #FFFFFF;
+            text-decoration: none;
+            border-radius: 25px;
+            width: 100%;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-buttons .get-started {
+            background-color: #4A9C14;
+        }
+
+        .cta-buttons .get-started:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-buttons .login {
+            background-color: #FFFFFF;
+            color: #4A9C14;
+            border: 2px solid #4A9C14;
+        }
+
+        .cta-buttons .login:hover {
+            background-color: #E6F9E6;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        @media only screen and (max-width: 767px) {
+            header img {
+                width: 50%;
+                max-width: 120px;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            #content h2 {
+                font-size: 1.4rem;
+            }
+
+            .cta-buttons a {
+                padding: 14px 28px;
+                font-size: 1rem;
+            }
+
+            .cta-buttons .get-started,
+            .cta-buttons .login {
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="animals_busy.gif" alt="animak hitting laptop">
+        <h1>Welcome!</h1>
+    </header>
+    <div id="content">
+        <h2>Ready to Learn More about Generative AI?</h2>
+        <div class="cta-buttons">
+            <a href="infopg1.html" class="get-started">Get Started</a>
+            <a href="chapters.html" class="login">Chapters</a>
+        </div>
+    </div>
+</body>
+</html>

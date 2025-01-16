@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Storytelling Assignment</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;600&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">  
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            background-color: white;
+            background-size: cover;
+            font-family: 'Titillium Web', sans-serif;
+        }
+        
+
+        #container {
+            background-color: #EBE9E9;
+            width: 960px;
+            height: 540px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-align: center;
+            color: #333;
+        }
+
+        .poppins-semibold {
+        font-family: "Poppins", serif;
+         font-weight: 600;
+        font-style: normal;
+        }
+
+        .poppins-extrabold {
+        font-family: "Poppins", serif;
+        font-weight: 800;
+        font-style: normal;
+        }
+
+
+        .content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        img {
+            width: 45%; /* Scales the mascot to half the container */
+            height: auto;
+            cursor: pointer;
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+            margin-left: 80px; /* Adjust this value to shift more to the right */
+        }
+
+        .speech-bubble {
+        position: absolute;
+        gap: 20px; /* Spacing between buttons */
+        margin-left: -305px; /* Adjust this value to move buttons closer to the image */
+        transform: translateX(-50%);
+        background-color: white;
+        color: black;
+        font-size: 1rem;
+         padding: 20px 25px;
+        border-radius: 10px;
+         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        white-space: nowrap;
+        opacity: 1; /* Set to 1 so it is always visible */
+        transition: none; /* No transition is needed anymore */
+}
+
+
+        img:hover + .speech-bubble,
+        img:active + .speech-bubble {
+            display: block;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Spacing between buttons */
+            margin-left: -65px; /* Adjust this value to move buttons closer to the image */
+        }
+
+        button {
+            width: 200px;
+            padding: 15px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: 2px solid #333; /* Adds the border */
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .get-started {
+            background-color: #3581B8;
+            color: white;
+            border-color: #266394; /* Matches the button color for a cohesive look */
+        }
+
+        .chapters {
+            background-color: #DEE2D6;
+            color: #555;
+            border-color: #B1B6AE; /* Matches the button shade */
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            font-size: 0.9rem;
+            color: #555;
+            margin: 0;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .click-me {
+          position: absolute;
+         top: 170px; /* Adjust the position based on your layout */
+         left: 200px;
+        transform: translateX(-50%);
+        font-family: "Poppins", serif;
+         font-weight: 600;
+        font-style: normal;
+        font-size: 1rem;
+        color: #333;
+        cursor: pointer;
+}
+
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Kimichi's Guide to Generative AI</h1>
+        <div class="content">
+            <img src="./kimchi-eyesBIG2.png" alt="Mascot">
+        
+        <div class="speech-bubble" onclick="showSpeechBubble2()">Hey! I'm Kimchi! <br> Come learn more about<br>Generative AI with me</div>
+        
+
+        <div class="button-container">
+            <button class="get-started" onclick="window.location.href='page%201.html'">Get Started</button>
+            <button class="chapters" onclick="window.location.href='./chapters.html'">Chapters</button>
+        </div>
+        
+        </div>
+        <p>Brought to you by IMDA</p>
+    </div>
+</body>
+</html>

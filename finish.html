@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congratulations!</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">
+    <!-- Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            margin-bottom: 100px;
+            background-color: #5c6ac0;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            text-align: center;
+            overflow-y: auto; /* Enable vertical scrolling */      
+        }
+
+        header img {
+            width: 250px;
+            height: auto;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-top: -40px;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: relative;
+            margin: 10px 0;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-inner {
+            height: 100%;
+            width: 100%; /* Indicates 100% completion */
+            background-color: #58cc02;
+            border-radius: 15px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-bar-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            z-index: 1;
+        }
+
+        /* Buttons Section */
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 240px;
+        }
+
+        .cta-buttons a {
+            display: inline-block;
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 25px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+        }
+
+        .cta-buttons .continue {
+            background-color: #ffbf00;
+            color: #5c6ac0;
+        }
+
+        .cta-buttons .continue:hover {
+            background-color: #e6ac00;
+            fill: #fff;
+            fill-opacity: 100%;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-buttons .practice {
+            background-color: transparent;
+            color: #ffbf00;
+            border: 2px solid #ffbf00;
+        }
+
+        .cta-buttons .practice:hover {
+            background-color: rgba(255, 191, 0, 0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        @media only screen and (max-width: 767px) {
+            header img {
+                width: 50%;
+                max-width: 120px;
+            }
+
+            .cta-buttons a {
+                padding: 14px 28px;
+                font-size: 1rem;
+            }
+
+            .cta-buttons .continue,
+            .cta-buttons .practice {
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="animals_happy.gif" alt="Celebration GIF">
+        <h1>Congratulations!</h1>
+    </header>
+
+    <!-- Progress Bar Section -->
+    <div class="progress-container">
+        <div class="progress-bar">
+            <!-- Progress Bar Text -->
+            <div class="progress-bar-text">100%</div>
+            <div class="progress-bar-inner"></div>
+        </div>
+    </div>
+
+    <!-- Buttons Section -->
+    <div class="cta-buttons">
+        <a href="chapters.html" class="practice">Practice Again</a>
+        <a href="home2test.html" class="continue">Home</a>
+    </div>
+
+    <script>
+        // Confetti trigger when the page loads
+        window.onload = function() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { x: 0.5, y: 0.5 },
+                colors: ['#ffbf00', '#ffffff', '#58cc02'], // Customize confetti colors
+                scalar: 1.2
+            });
+        };
+    </script>
+</body>
+</html>

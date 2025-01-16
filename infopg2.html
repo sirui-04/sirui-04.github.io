@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applications of Gen AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff; /* White background */
+            color: #333; /* Dark text */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0;
+        }
+
+        /* Progress Bar */
+        #progress-bar-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            height: 8px;
+        }
+
+        #progress-bar {
+            width: 30%; /* Adjust as needed for progress */
+            background-color: #4DB7AD; /* Duolingo-like green */
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        /* Header */
+        header {
+            width: 100%;
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .subtitle {
+            color: #666;
+        }
+
+        /* Collapsible Section */
+        .collapsible-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .collapsible {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .collapsible:hover {
+            background-color: #f1f1f1;
+        }
+
+        .collapsible-content {
+            display: none;
+            padding-top: 5px;
+            padding-bottom: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Next Button */
+        .next-button {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            padding: 12px 24px;
+            background-color: #4DB7AD;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .next-button.disabled {
+            background-color: #B0B0B0; /* Grey color when disabled */
+            color: #D3D3D3; /* Lighter grey text */
+            cursor: not-allowed;
+        }
+
+        .next-button.disabled:hover {
+            box-shadow: none;
+            transform: none;
+        }
+
+        .next-button.enabled {
+            cursor: pointer;
+            background-color: #4DB7AD;
+            color: white;
+        }
+
+        .next-button.enabled:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        label {
+            padding: 10px;
+            display: inline-block;
+            cursor: pointer;
+        }
+/* Checkbox Section */
+.checkbox-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.checkbox-section label {
+    font-size: 1rem;
+    color: #333;
+}
+
+.checkbox-section input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+
+.checkbox-section button {
+    background-color: #4DB7AD;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.checkbox-section button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div id="progress-bar-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <h1>2. Applications of Gen AI</h1>
+        <p class="subtitle">Click on each section to explore more!</p> 
+    </header>
+
+    <!-- Collapsible Sections -->
+    <div class="collapsible-container">
+        <!-- Text Generation -->
+        <div class="collapsible">
+            <strong>Text Generation</strong>
+        </div>
+        <div class="collapsible-content">
+            <p>Write essays, articles, poetry, and emails using AI.</p>
+            <p><strong>What changes does this mean?</strong></p>
+            <ul>
+                <li>Novels and screenplays 🎭: AI can help writers overcome writer's block by generating plot ideas, developing characters, and even drafting entire scenes.</li>
+                <li>Marketing copy 🗂️: Businesses can use AI to create compelling ad copy, social media posts, and personalized email campaigns.</li>
+                <li>Code generation 🧑‍💻: Developers can use AI tools to generate code snippets, debug existing code, and even create entire programs.</li>
+            </ul>
+        </div>
+
+        <!-- Creative Outputs -->
+        <div class="collapsible">
+            <strong>Creative Outputs</strong>
+        </div>
+        <div class="collapsible-content">
+            <p>AI can compose original music or create imaginative digital art. Gen AI is pushing the boundaries of human creativity.</p>
+            <p><strong>In what ways can we see this?</strong></p>
+                <li>Music composition 🥁: AI can compose music in various styles, from classical to jazz to electronic, and even collaborate with human musicians to create unique pieces.</li>
+                <li>Digital art 🧑‍🎨: Tools like DALL-E 2 and Midjourney can generate stunning and imaginative images, pushing the limits of what's possible in visual art.</li>
+                <li>Architectural design 🏙️: AI can assist architects in exploring new design concepts, generating 3D models, and optimizing building structures for energy efficiency.</li>
+        </div>
+
+        <!-- Practical Use Cases -->
+        <div class="collapsible">
+            <strong>Practical Use Cases</strong>
+        </div>
+        <div class="collapsible-content">
+            <p>Plan events, create personalised recommendations, and assist with research or schoolwork.</p>
+            <p><strong>Hmmm...How though?</strong></p>
+            <ul>
+                <li>Event planning 🎉: AI can help plan events by suggesting venues, creating guest lists, and even generating personalized itineraries.</li>
+                <li>Personalized recommendations 🎀: From online shopping to travel planning, AI can provide highly personalized recommendations based on individual preferences and past behavior.</li>
+                <li>Customer service ☎️: AI-powered chatbots can provide 24/7 customer support, answer frequently asked questions, and resolve simple issues quickly and efficiently.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Checkbox for Enabling Next Button -->
+    <div>
+        <input type="checkbox" id="readyCheckbox">
+        <label for="readyCheckbox">Ooo! So interesting~ Let's see what's next!</label>
+    </div>
+
+    <!-- Next Button -->
+    <a href="quiz2.html" id="nextButton" class="next-button disabled" onclick="return false;">
+        Next <span>➡️</span>
+    </a>
+
+    <script>
+        const checkboxes = document.getElementById('readyCheckbox');
+        const nextButton = document.getElementById('nextButton');
+        const collapsibles = document.querySelectorAll('.collapsible');
+
+        // Toggle next button enabled/disabled
+        checkboxes.addEventListener('change', function() {
+            if (checkboxes.checked) {
+                nextButton.classList.remove('disabled');
+                nextButton.classList.add('enabled');
+                nextButton.removeAttribute('onclick');
+            } else {
+                nextButton.classList.remove('enabled');
+                nextButton.classList.add('disabled');
+                nextButton.setAttribute('onclick', 'return false;');
+            }
+        });
+
+        // Collapsible functionality
+        collapsibles.forEach(collapsible => {
+            collapsible.addEventListener('click', () => {
+                const content = collapsible.nextElementSibling;
+                content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            });
+            
+        });
+    </script>
+</body>
+</html>

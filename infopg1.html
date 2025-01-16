@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff; /* White background */
+            color: #333; /* Dark text */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0;
+        }
+
+        /* Progress Bar */
+        #progress-bar-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            height: 8px;
+        }
+
+        #progress-bar {
+            width: 10%; /* Adjust as needed for progress */
+            background-color: #4DB7AD; /* Duolingo-like green */
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        /* Header */
+        header {
+            width: 100%;
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        /* Pointers Section */
+        .pointers-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .pointer {
+            display: flex;
+            align-items: flex-start;
+            padding: 20px 0;
+            border-bottom: 1px solid #e0e0e0;
+            position: relative;
+        }
+
+        .pointer:last-child {
+            border-bottom: none;
+        }
+
+        .pointer-icon {
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem; /* Emoji size */
+            margin-right: 20px;
+            position: relative;
+        }
+
+        .pointer-content {
+            flex-grow: 1;
+        }
+
+        .pointer-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0 0 5px;
+            color: #333;
+        }
+
+        .pointer-description {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #666;
+            margin: 0;
+        }
+
+        /* Tooltip styles */
+        .tooltip {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 100%; /* Position to the right of the emoji */
+            margin-left: 10px; /* Space between the emoji and the tooltip */
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            white-space: normal; /* Allow text to wrap */
+            z-index: 10;
+            width: auto; /* Make the tooltip width dynamic based on content */
+            min-width: 800px; /* Ensure there's a minimum width */
+            max-width: 1000px; /* Limit the tooltip's width */
+            overflow-y: auto; /* Enable scrolling if content overflows */
+            box-sizing: border-box;
+            line-height: 1.4; /* Adjust line height for better readability */
+        }
+
+        .pointer-icon:hover .tooltip {
+            display: block;
+        }
+
+        /* Next Button */
+        .next-button {
+            margin: 30px 0;
+            margin-top: 20px;
+            margin-bottom: 50px;
+            padding: 12px 24px;
+            background-color: #4DB7AD;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: not-allowed;
+        }
+
+        .next-button.disabled {
+            background-color: #B0B0B0; /* Grey color when disabled */
+            color: #D3D3D3; /* Lighter grey text */
+            cursor: not-allowed;
+        }
+
+        .next-button.disabled:hover {
+            box-shadow: none;
+            transform: none;
+        }
+
+        .next-button.enabled {
+            cursor: pointer;
+            background-color: #4DB7AD;
+            color: white;
+        }
+
+        .next-button.enabled:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .next-button span {
+            font-size: 1.2rem;
+        }
+
+        label {
+    padding-left: 10px;  /* Space between checkbox and text on the left */
+    padding-right: 10px; /* Space on the right */
+    padding-top: 50px;    /* Space on the top */
+    padding-bottom: 10px; /* Space on the bottom */
+    display: inline-block; /* Ensure the label is inline-block for padding to take effect */
+}
+
+
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div id="progress-bar-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <h1>1. Introduction to AI and Gen AI</h1>
+        <p class="subtitle">Hover over the emojis to learn more!</p> 
+    </header>
+
+    <!-- Pointers Section -->
+    <div class="pointers-container">
+        <!-- Pointer 1 -->
+        <div class="pointer">
+            <div class="pointer-icon">🤖
+                <div class="tooltip">
+                    💡 Real-Life Examples:<br><br>
+                    1. Self-driving cars 🚗: Utilize AI to perceive their surroundings, make driving decisions, and adapt to changing traffic conditions.<br><br>
+                    2. Spam filters 🗣️: Employ AI to analyze emails and identify patterns that indicate spam, learning to recognize new spam tactics over time.<br><br>
+                    3. Recommendation systems 🎬: Used by platforms like Netflix and Spotify to suggest movies, music, and other content based on user preferences, constantly refining their recommendations as user behavior evolves.
+                </div>
+            </div> <!-- Emoji Icon -->
+            <div class="pointer-content">
+                <h2 class="pointer-title">AI Basics</h2>
+                <p class="pointer-description">Artificial Intelligence involves teaching machines to mimic human behaviour using algorithms that learn and adapt.</p>
+            </div>
+        </div>
+
+        <!-- Pointer 2 -->
+        <div class="pointer">
+            <div class="pointer-icon">📈
+                <div class="tooltip">
+                    What is Large Language Models (LLMs)?<br><br>
+                    🤩 A recent breakthrough, LLMs are trained on massive amounts of text data, allowing them to: <br><br>
+                    1. Generate human-like text 🧬: Write stories, poems, articles, and even code.<br><br>
+                    2. Translate languages 🔤: Accurately translate between different languages.<br><br>
+                    3. Answer questions 🙋: Provide informative and comprehensive responses to a wide range of questions.
+                </div>
+            </div> <!-- Emoji Icon -->
+            <div class="pointer-content">
+                <h2 class="pointer-title">Evolution of AI</h2>
+                <p class="pointer-description">AI has progressed through machine learning, deep learning, and large language models (LLMs), enabling pattern recognition and human-like decision-making.</p>
+            </div>
+        </div>
+
+        <!-- Pointer 3 -->
+        <div class="pointer">
+            <div class="pointer-icon">🧠
+                <div class="tooltip">
+                    💡 Real-Life Examples:<br><br>
+                    1. Text generation 📝: 
+                    Chatbots (eg. ChatGPT), which can engage in human-like conversations and AI writing assistants that help writers with brainstorming and work.<br><br>
+                    2. Image generation 🖼️: 
+                    DALL-E 2, Midjourney all create stunning and original images from simple text descriptions.<br><br>
+                    3. Music generation 🎸: 
+                    AI music composers can generate unique melodies, harmonies, and even entire musical pieces in various styles.
+                </div>
+            </div> <!-- Emoji Icon -->
+            <div class="pointer-content">
+                <h2 class="pointer-title">What is Gen AI?</h2>
+                <p class="pointer-description">A subset of AI, Gen AI not only processes information but also generates new content (e.g., stories, images, music) beyond traditional AI's capabilities.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkbox for Enabling Next Button -->
+    <div>
+        <input type="checkbox" id="readyCheckbox">
+        <label for="readyCheckbox">Wow! That's so cool 🤩! I'm ready to see more</label>
+    </div>
+
+    <!-- Next Button -->
+    <a href="quiz1.html" id="nextButton" class="next-button disabled" onclick="return false;">
+        Next <span>➡️</span>
+    </a>
+
+    <script>
+        const checkbox = document.getElementById('readyCheckbox');
+        const nextButton = document.getElementById('nextButton');
+
+        checkbox.addEventListener('change', function() {
+            if (checkbox.checked) {
+                nextButton.classList.remove('disabled');
+                nextButton.classList.add('enabled');
+                nextButton.removeAttribute('onclick'); // Allow navigation
+            } else {
+                nextButton.classList.remove('enabled');
+                nextButton.classList.add('disabled');
+                nextButton.setAttribute('onclick', 'return false;'); // Disable navigation
+            }
+        });
+    </script>
+</body>
+</html>

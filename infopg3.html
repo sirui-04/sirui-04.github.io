@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risks of Gen AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0;
+        }
+
+        /* Progress Bar */
+        #progress-bar-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #e0e0e0;
+            height: 8px;
+        }
+
+        #progress-bar {
+            width: 50%; /* Adjust as needed for progress */
+            background-color: #4DB7AD; /* Duolingo-like green */
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        header {
+            width: 100%;
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Card Row */
+        .card-row {
+            display: flex;
+            gap: 30px; /* Increased spacing between cards */
+            padding: 20px; /* Added padding around the row */
+            max-width: 100%;
+            margin: 20px 0;
+            overflow-x: auto;
+            align-items: flex-start; /* Align cards to the top */
+            min-height: auto; /* Ensure enough height for the cards */
+        }
+
+        .card-row::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for a cleaner look */
+        }
+
+        /* Flip Card */
+        .flip-card {
+            background-color: transparent;
+            perspective: 1000px;
+            width: 200px; /* Smaller card width */
+            height: 200px; /* Smaller card height */
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 0.7rem; /* Smaller text size */
+            line-height: 1.2;
+        }
+
+        .flip-card-front {
+            background-color: #f9f9f9;
+        }
+
+        .flip-card-back {
+            background-color: #4DB7AD;
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        /* Popup Modal */
+        .popup-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 800px;
+            background-color: white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            z-index: 10;
+            max-height: 70vh; /* Limit the height to 70% of the viewport height */
+            overflow-y: auto; /* Enable vertical scrolling if content overflows */
+        }
+
+        .popup-modal h2 {
+            margin: 0 0 10px;
+            font-size: 1.2rem;
+        }
+
+        .popup-modal p {
+            margin: 10px 0;
+            color: #666;
+        }
+
+        .popup-modal .close-btn {
+            background: #4DB7AD;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9;
+        }
+
+        /* Checkbox Section */
+        .checkbox-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .checkbox-section label {
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .checkbox-section input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Next Button */
+        .next-button {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            padding: 12px 24px;
+            background-color: #4DB7AD;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .next-button.disabled {
+            background-color: #B0B0B0; /* Grey color when disabled */
+            color: #D3D3D3; /* Lighter grey text */
+            cursor: not-allowed;
+        }
+
+        .next-button.disabled:hover {
+            box-shadow: none;
+            transform: none;
+        }
+
+        .next-button.enabled {
+            cursor: pointer;
+            background-color: #4DB7AD;
+            color: white;
+        }
+
+        .next-button.enabled:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>3. Risks of Generative AI</h1>
+        <p class="subtitle">Hover on the cards and click on them to learn more!</p>
+    </header>
+
+     <!-- Progress Bar -->
+     <div id="progress-bar-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <!-- Card Row -->
+    <div class="card-row">
+        <div class="flip-card" onclick="showPopup('text-gen')">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <strong>Data <br>Privacy</strong>
+                </div>
+                <div class="flip-card-back">
+                    <p>Risks associated with uploading private information, leading<br> to breaches.</p>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card" onclick="showPopup('creative-outputs')">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <strong>Misinformation</strong>
+                </div>
+                <div class="flip-card-back">
+                    <p>Gen AI can produce "hallucinated" (false) content, which may<br> mislead users.</p>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card" onclick="showPopup('practical-use')">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <strong>Deepfakes</strong>
+                </div>
+                <div class="flip-card-back">
+                    <p>AI-created fake videos or audio can erode trust and spread misinformation.</p>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card" onclick="showPopup('future-trends')">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <strong>Copyright Issues</strong>
+                </div>
+                <div class="flip-card-back">
+                    <p>Challenges with ownership of AI-generated content and potential legal consequences.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkbox Section -->
+    <div class="checkbox-section">
+        <input type="checkbox" id="readyCheckbox">
+        <label for="readyCheckbox">Wow! I've learnt so much! What's next?</label>
+    </div>
+
+    <!-- Next Button -->
+    <a href="quiz3.html" id="nextButton" class="next-button disabled" onclick="return false;">
+        Next <span>➡️</span>
+    </a>
+
+    <!-- Popup Modals -->
+    <div class="overlay" id="overlay" onclick="closePopup()"></div>
+
+    <div class="popup-modal" id="text-gen-modal">
+        <h2>Data Privacy</h2>
+        <p>Your private information could be exposed during AI training or through AI outputs.</p>
+        <ul>
+            <li>Training Data 💪: Generative AI models are trained on massive datasets, which may include sensitive personal information. <br> If this data is not properly anonymized or protected, it could be exposed in the training process or through model outputs.</li>
+            <li>User-Generated Content 🧑‍💻: When users interact with generative AI tools, they may inadvertently share personal information that could be misused or exploited. <br>For example, a chatbot might be trained on user conversations, potentially revealing private details.</li><br>
+            <strong>💡 Real-Life Example:</strong>
+                A popular AI image generator was found to have incorporated personal watermarks from artists whose work was used in its training data, potentially violating copyright laws.
+        </ul>
+        <button class="close-btn" onclick="closePopup()">Close</button>
+    </div>
+
+    <div class="popup-modal" id="creative-outputs-modal">
+        <h2>Misinformation</h2>
+        <p>AI can generate false or misleading information, including convincing fake videos and audio.</p>
+        <ul>
+            <li>Inaccurate Information 🛑: Generative AI models can sometimes generate factually incorrect or misleading information, often referred to as "hallucinations." This can be particularly problematic in areas like news reporting or scientific research.</li>
+            <li>Deepfakes 👺: These AI-generated videos or audio recordings can be used to create highly realistic but fabricated content, often for malicious purposes such as spreading misinformation or damaging reputations.</li><br>
+            <strong>💡 Real-Life Example:</strong>
+            A deepfake video of a political leader making a controversial statement went viral, causing widespread confusion and distrust.
+        </ul>
+        <button class="close-btn" onclick="closePopup()">Close</button>
+    </div>
+
+    <div class="popup-modal" id="practical-use-modal">
+        <h2>Copyright Issues</h2>
+        <p>Ownership of AI-generated content and the use of copyrighted material in AI training are unclear.</p>
+        <ul>
+            <li>Ownership of AI-Generated Content 🖇️: There is ongoing debate about who owns the copyright to content created by AI systems. Is it the developer, the user, or the AI itself?</li>
+            <li>Training Data Copyright 📊: Generative AI models are often trained on copyrighted material, raising concerns about fair use and potential infringement.</li><br>
+            <strong>💡 Real-Life Example:</strong>
+            A musician sued an AI music generator for using their copyrighted songs in its training data, arguing that it infringed on their intellectual property rights.
+        </ul>
+        <button class="close-btn" onclick="closePopup()">Close</button>
+    </div>
+
+    <div class="popup-modal" id="future-trends-modal">
+        <h2>Ethical Concerns</h2>
+        <p>AI could lead to job displacement and perpetuate existing biases.</p>
+        <ul>
+            <li>Job Displacement 💼: As generative AI becomes more sophisticated, there are concerns that it could automate tasks currently performed by humans, leading to job losses in certain sectors.</li>
+            <li>Bias and Discrimination 👀: If the training data used to develop generative AI models contains biases, these biases can be reflected in the AI's outputs, perpetuating harmful stereotypes and discrimination.</li><br>
+            <strong>💡 Real-Life Example:</strong>
+            An AI-powered hiring tool was found to discriminate against female candidates, as it was trained on data that reflected historical gender biases in the workplace.
+        </ul>
+        <button class="close-btn" onclick="closePopup()">Close</button>
+    </div>
+
+    <script>
+        function showPopup(id) {
+            document.getElementById(`${id}-modal`).style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.querySelectorAll('.popup-modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        // Enable/Disable Next Button based on checkbox state
+        const checkbox = document.getElementById("readyCheckbox");
+        const nextButton = document.getElementById("nextButton");
+
+        checkbox.addEventListener("change", function() {
+            if (checkbox.checked) {
+                nextButton.classList.remove("disabled");
+                nextButton.classList.add("enabled");
+                nextButton.onclick = () => { window.location.href = "nextPage.html"; }; // Redirect to next page
+            } else {
+                nextButton.classList.remove("enabled");
+                nextButton.classList.add("disabled");
+                nextButton.onclick = () => { return false; }; // Disable link
+            }
+        });
+    </script>
+</body>
+</html>

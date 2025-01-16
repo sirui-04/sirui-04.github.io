@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkpoint Time - Generative AI Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            margin-bottom: 300px;
+            font-family: 'Poppins', sans-serif;
+            background-color: #66bb6a; /* Changed background color to white */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            overflow-y: scroll;
+        }
+
+       
+        /* Header */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            height: 90%;
+            text-align: center;
+            border-bottom: 1px solid black;
+            padding-top: 20px;
+            padding-bottom: 0px;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: black;
+        }
+
+        /* Question Container */
+        .question-container {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            max-width: 800px;
+            width: 100%;
+            margin-bottom: 100px;
+            display: none; /* Initially hidden */
+        }
+
+        .question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .answers {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .answer {
+            padding: 25px;
+            background-color: #ffffff;
+            border: 2px solid #d3d3d3;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .answer:hover {
+            background-color: #f6f6f6;
+            border-color: #a0a0a0;
+        }
+
+        .answer.clicked {
+            background-color: #d0e8ff;
+            border-color: #3581b8;
+        }
+
+        .answer.correct {
+            background-color: #a7f3a7;
+            border-color: #30a630;
+            pointer-events: none;
+        }
+
+        .answer.incorrect {
+            background-color: #f7a7a7;
+            border-color: #d33c3c;
+        }
+
+        .submit-button {
+            margin-top: 30px;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background-color: #d3d3d3;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: not-allowed;
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+        }
+
+        .submit-button.enabled {
+            background-color: #4DB7AD;
+            cursor: pointer;
+        }
+
+        .submit-button.enabled:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .submit-button.correct {
+            background-color: #4CAF50;
+            cursor: pointer;
+        }
+
+        .next-button {
+            margin-top: 30px;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            background-color: #4DB7AD;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .result {
+            display: none;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .incorrect {
+            color: red;
+        }
+
+        /* Try Again Bubble */
+        .try-again {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #f7a7a7;
+            border: 2px solid #d33c3c;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            display: none;
+            z-index: 100;
+            text-align: center;
+        }
+
+        .try-again .close {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            font-size: 20px;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Button Container */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div id="progress-bar-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <!-- Header -->
+<header>
+  <img src="animals_congrats.gif" alt="Duck Clapping" style="height: 300px; margin-right: 20px;">
+  <div>
+      <h1>Checkpoint Time!</h1>
+      <p>Choose the correct answer<br>and test your understanding of Generative AI!</p>
+  </div>
+</header>
+
+
+    <!-- Question Containers -->
+    <div class="question-container" id="question1">
+        <div class="question">1. Which of the following is NOT a key characteristic of Generative AI?</div>
+        <div class="answers">
+            <button class="answer" onclick="selectAnswer(1, 'a')">a) Ability to create new content</button>
+            <button class="answer" onclick="selectAnswer(1, 'b')">b) Reliance on pre-existing data</button>
+            <button class="answer" onclick="selectAnswer(1, 'c')">c) Inability to learn and adapt</button>
+            <button class="answer" onclick="selectAnswer(1, 'd')">d) Potential to revolutionize various industries</button>
+        </div>
+        <div class="button-container">
+            <button class="submit-button" id="submit1" onclick="submitAnswer(1)" disabled>Submit Answer</button>
+            <button class="next-button" id="next-button1" onclick="nextQuestion()" style="display: none;">Next</button>
+        </div>
+        <div class="try-again" id="try-again1">
+            Try Again!
+            <span class="close" onclick="resetQuiz(1)">×</span>
+        </div>
+    </div>
+    
+    <div class="question-container" id="question2">
+        <div class="question">2. Which of the following is an example of a practical application of Generative AI?</div>
+        <div class="answers">
+            <button class="answer" onclick="selectAnswer(2, 'a')">a) Composing a symphony</button>
+            <button class="answer" onclick="selectAnswer(2, 'b')">b) Writing a poem</button>
+            <button class="answer" onclick="selectAnswer(2, 'c')">c) Creating a personalized workout routine</button>
+            <button class="answer" onclick="selectAnswer(2, 'd')">d) Designing a new fashion line</button>
+        </div>
+        <div class="button-container">
+            <button class="submit-button" id="submit2" onclick="submitAnswer(2)" disabled>Submit Answer</button>
+            <button class="next-button" id="next-button2" onclick="nextQuestion()" style="display: none;">Next</button>
+        </div>
+        <div class="try-again" id="try-again2">
+            Try Again!
+            <span class="close" onclick="resetQuiz(2)">×</span>
+        </div>
+    </div>
+    
+    <div class="question-container" id="question3">
+        <div class="question">3. What is the primary difference between Generative AI and traditional AI?</div>
+        <div class="answers">
+            <button class="answer" onclick="selectAnswer(3, 'a')">a) Generative AI can only process existing data, while traditional AI can create new content.</button>
+            <button class="answer" onclick="selectAnswer(3, 'b')">b) Generative AI can create new content, while traditional AI is primarily focused on analyzing existing data.</button>
+            <button class="answer" onclick="selectAnswer(3, 'c')">c) Generative AI is more complex and requires more computing power than traditional AI.</button>
+            <button class="answer" onclick="selectAnswer(3, 'd')">d) Generative AI is a subset of traditional AI, with a narrower range of applications.</button>
+        </div>
+        <div class="button-container">
+            <button class="submit-button" id="submit3" onclick="submitAnswer(3)" disabled>Submit Answer</button>
+            <button class="next-button" id="next-button3" onclick="nextQuestion()" style="display: none;">Next</button>
+        </div>
+        <div class="try-again" id="try-again3">
+            Try Again!
+            <span class="close" onclick="resetQuiz(3)">×</span>
+        </div>
+    </div>
+
+    <div class="result" id="result">
+        <div class="correct" id="correct-answer">You got it right! Great job!</div>
+        <div class="incorrect" id="incorrect-answer">Oops! That's not quite right. Try again!</div>
+    </div>
+
+    <script>
+      const correctAnswers = {
+          1: 'c',
+          2: 'c',
+          3: 'b'
+      };
+  
+      let userAnswers = {};
+      let questionIndex = 1;
+  
+      // Show the current question
+      function showQuestion(index) {
+          document.querySelector(`#question${index}`).style.display = 'block';
+          document.querySelector(`#try-again${index}`).style.display = 'none';
+          document.querySelector(`#next-button${index}`).style.display = 'none';
+      }
+  
+      // Select an answer
+      function selectAnswer(questionNumber, selectedAnswer) {
+          const buttons = document.querySelectorAll(`#question${questionNumber} .answer`);
+          buttons.forEach(button => button.classList.remove('clicked'));
+          const selectedButton = document.querySelector(`#question${questionNumber} .answer:nth-of-type(${['a', 'b', 'c', 'd'].indexOf(selectedAnswer) + 1})`);
+          selectedButton.classList.add('clicked');
+          userAnswers[questionNumber] = selectedAnswer;
+  
+          // Enable submit button and make it green when selected
+          const submitButton = document.querySelector(`#submit${questionNumber}`);
+          submitButton.disabled = false;
+          submitButton.classList.add('enabled');
+      }
+  
+      // Submit the answer
+      function submitAnswer(questionNumber) {
+          const selectedAnswer = userAnswers[questionNumber];
+          const correctAnswer = correctAnswers[questionNumber];
+  
+          const buttons = document.querySelectorAll(`#question${questionNumber} .answer`);
+          buttons.forEach(button => {
+              button.disabled = true; // Disable all answers after submission
+              if (button.classList.contains('clicked')) {
+                  if (selectedAnswer === correctAnswer) {
+                      button.classList.add('correct');
+                      showResult(true);
+                  } else {
+                      button.classList.add('incorrect');
+                      showResult(false);
+                  }
+              }
+          });
+  
+          if (selectedAnswer !== correctAnswer) {
+              document.querySelector(`#try-again${questionNumber}`).style.display = 'block';
+              setTimeout(() => {
+                  const incorrectButtons = document.querySelectorAll(`#question${questionNumber} .incorrect`);
+                  incorrectButtons.forEach(button => button.classList.remove('incorrect'));
+              }, 5000);
+              document.querySelector(`#submit${questionNumber}`).disabled = true;
+          } else {
+              const nextButton = document.querySelector(`#next-button${questionNumber}`);
+              nextButton.style.display = 'inline-block';
+              if (questionNumber === 3) {
+                  // Change "Next" button to "Finish" and redirect
+                  nextButton.innerText = 'Finish';
+                  nextButton.onclick = () => window.location.href = 'infopg3.html';
+              }
+          }
+      }
+  
+      // Show result message
+      function showResult(isCorrect) {
+          if (isCorrect) {
+              document.getElementById('incorrect-answer').style.display = 'none';
+              document.getElementById('correct-answer').style.display = 'block';
+          } else {
+              document.getElementById('correct-answer').style.display = 'none';
+              document.getElementById('incorrect-answer').style.display = 'block';
+          }
+      }
+  
+      // Next question
+      function nextQuestion() {
+          document.querySelector(`#question${questionIndex}`).style.display = 'none';
+          questionIndex++;
+          if (questionIndex <= 3) {
+              showQuestion(questionIndex);
+          }
+      }
+  
+      // Reset buttons after incorrect answer
+      function resetButtons(questionNumber) {
+          const buttons = document.querySelectorAll(`#question${questionNumber} .answer`);
+          buttons.forEach(button => {
+              button.classList.remove('clicked', 'incorrect', 'correct');
+              button.disabled = false;
+          });
+          document.querySelector(`#submit${questionNumber}`).disabled = true;
+      }
+  
+      // Reset quiz when cross is clicked
+      function resetQuiz(questionNumber) {
+          resetButtons(questionNumber);
+          document.querySelector(`#try-again${questionNumber}`).style.display = 'none';
+          document.querySelector(`#submit${questionNumber}`).disabled = true;
+      }
+  
+      // Show the first question initially
+      showQuestion(questionIndex);
+  </script>
+  
+
+</body>
+</html>

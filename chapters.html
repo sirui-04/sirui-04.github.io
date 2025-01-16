@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapters</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ba68c8; /* Purple background */
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            overflow: auto; /* Allow scrolling */
+            text-align: center;
+            flex-direction: column;
+        }
+
+        header {
+            width: 100%;
+            display: flex;
+            flex-direction: column; /* Stack the image on top of the title */
+            align-items: center; /* Center the title */
+            margin-bottom: 20px;
+        }
+
+        header img {
+            width: 300px;
+            height: auto;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff; /* White text */
+            margin-top: -80px; /* Adjusted space */
+        }
+
+        #scroll-indicator {
+            position: fixed; /* Fixed position at the bottom right */
+            bottom: 20px;
+            right: 50px;
+            color: #ffffff; /* White text for the scroll message */
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        #scroll-indicator.hidden {
+            opacity: 0;
+            pointer-events: none; /* Prevent interaction when hidden */
+        }
+
+        #scroll-indicator .arrow {
+            margin-top: 1px;
+            margin-bottom: 10px;
+            border: solid #ffffff;
+            border-width: 0 6px 6px 0;
+            display: inline-block;
+            padding: 10px;
+            transform: rotate(45deg);
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) rotate(45deg);
+            }
+            40% {
+                transform: translateY(8px) rotate(45deg);
+            }
+            60% {
+                transform: translateY(4px) rotate(45deg);
+            }
+        }
+
+        #content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: 30px;
+            padding-bottom: 30px;
+        }
+
+        #content h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #ffffff; /* White text */
+            margin-bottom: 30px;
+            max-width: 90%;
+            margin-top: -80px;
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        .button-row .chapter-btn {
+            background-color: #FFFFFF;
+            color: #4A9C14;
+            border: 2px solid #4A9C14;
+            padding: 5px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border-radius: 5px; /* Squared corners */
+            width: 190px;
+            height: 200px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .button-row .chapter-btn:hover {
+            background-color: #E6F9E6; /* Hover effect */
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-row .chapter-btn:active {
+            transform: scale(1);
+        }
+
+        @media only screen and (max-width: 767px) {
+            header img {
+                width: 50%;
+                max-width: 120px;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            #content h2 {
+                font-size: 1.4rem;
+            }
+
+            .button-row {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .button-row .chapter-btn {
+                width: 80px; /* Adjust for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="animals_eating.gif" alt="a sheep eating">
+        <h1>Chapters</h1>
+    </header>
+
+    <div id="scroll-indicator">
+        <span>Scroll to<br>See More</span>
+        <i class="arrow"></i>
+    </div>
+
+    <div id="content">
+        <h2>Start Your Journey!</h2>
+        <div class="button-row">
+            <a href="infopg1.html"> <button class="chapter-btn"> 1</button> </a>
+            <a href="infopg2.html"> <button class="chapter-btn"> 2</button> </a>
+            <a href="infopg3.html"> <button class="chapter-btn"> 3</button> </a>
+        </div>
+        
+    </div>
+
+    <script>
+        const scrollIndicator = document.getElementById('scroll-indicator');
+
+        window.addEventListener('scroll', () => {
+            const scrolledToBottom =
+                window.innerHeight + window.scrollY >= document.body.offsetHeight;
+
+            if (scrolledToBottom) {
+                scrollIndicator.classList.add('hidden'); // Hide the indicator
+            } else {
+                scrollIndicator.classList.remove('hidden'); // Show the indicator
+            }
+        });
+    </script>
+</body>
+</html>
